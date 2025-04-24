@@ -24,14 +24,15 @@ defmodule Climax.MixProject do
   defp deps do
     [
       {:req, "~> 0.5.0"},
-      {:mimic, "~> 1.10", only: :test}
+      {:mimic, "~> 1.10", only: :test},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
     ]
   end
 
   defp aliases do
     [
       start: ["run --no-halt"],
-      lint: ["format"]
+      lint: ["format", "credo --strict"]
     ]
   end
 end
