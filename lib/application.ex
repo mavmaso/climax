@@ -1,6 +1,9 @@
 defmodule Climax.Application do
+  @moduledoc "Climax Application startup"
+
   use Application
 
+  @impl true
   def start(_type, _args) do
     IO.puts("Starting application")
 

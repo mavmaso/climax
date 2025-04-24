@@ -3,10 +3,17 @@ defmodule Climax do
   Documentation for `Climax`.
   """
 
+  @doc """
+  Fetches the city's forecast and computes the average daily high for the next 6 days.
+  """
+  @spec get_temp(String.t()) :: String.t()
   def get_temp(city) do
     case city |> get_url() |> Req.get() do
-      {:ok, resp} -> "#{city} #{calc_final_temp(resp.body["daily"]["temperature_2m_max"])}°C"
-      {:error, _reason} -> "#{city}'s data not found"
+      {:ok, %{body: %{"daily" => %{"temperature_2m_max" => temp}}, status: 200}} ->
+        "#{city} #{calc_temp(temp)}°C"
+
+      {:error, _reason} ->
+        "#{city}'s data not found"
     end
   end
 
@@ -23,10 +30,11 @@ defmodule Climax do
     end
   end
 
-  defp calc_final_temp(temp_list) do
+  defp calc_temp(temp_list) do
     temp_list
+    |> Enum.take(6)
     |> Enum.sum()
-    |> then(&(&1 / length(temp_list)))
+    |> then(&(&1 / 6))
     |> Float.round(1)
   end
 end

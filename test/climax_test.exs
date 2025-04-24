@@ -1,5 +1,5 @@
 defmodule ClimaxTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   describe "get_temp/1" do
     Mimic.copy(Req)
@@ -25,12 +25,12 @@ defmodule ClimaxTest do
         "longitude" => -46.5,
         "timezone" => "America/Sao_Paulo",
         "timezone_abbreviation" => "GMT-3",
-        "utc_offset_seconds" => -10800
+        "utc_offset_seconds" => -10_800
       }
 
       Mimic.expect(Req, :get, fn _ -> {:ok, %Req.Response{body: body, status: 200}} end)
 
-      assert Climax.get_temp("São Paulo") == "São Paulo 23.4°C"
+      assert Climax.get_temp("São Paulo") == "São Paulo 23.9°C"
     end
 
     test "returns error when api call fails" do
