@@ -1,21 +1,26 @@
 # Climax
+  Climax is an Elixir application designed to demonstrate how to structure Elixir code, handle concurrency and parallelism, follow software development best practices, and leverage the functional features of the language.
 
-**TODO: Add description**
+### Proposal Problem
 
-## Installation
+  Using the public Open-Meteo API (https://open-meteo.com/), create an Elixir application that fetches the weather forecast for 3 cities, calculates the average maximum temperature for the next 6 days, and displays the result clearly.
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `climax` to your list of dependencies in `mix.exs`:
+## Setup
 
-```elixir
-def deps do
-  [
-    {:climax, "~> 0.1.0"}
-  ]
-end
-```
+- Install dependencies with `mix deps.get`
+- To run the application `mix start`
+- Run complete tests `mix test`
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/climax>.
+## Why ?
+
+ - Why use Mimic instead of Req's built-in mock?
+Because it's simpler to set up in this case — and also because I personally prefer it. However, the best practice would be to use Req.Test.stub/2.
+
+ - Why not use Task.async/1 with Task.await_many/1?
+Because, as Valim himself mentioned in this X/tweet(https://x.com/josevalim/status/1915358407801938256), it's almost an anti-pattern. I preferred to go with something more basic from OTP.
+Actually, I almost went with a GenServer per city that would update daily, but that would’ve gone way beyond the scope of the proposal.
+
+## Made by
+
+ - [mavmaso](https://github.com/mavmaso)
 
